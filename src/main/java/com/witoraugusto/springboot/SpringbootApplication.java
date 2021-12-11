@@ -1,5 +1,6 @@
 package com.witoraugusto.springboot;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,14 +8,19 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.witoraugusto.springboot.domain.Categorie;
-import com.witoraugusto.springboot.repositories.CategorieRepository;
+import com.witoraugusto.springboot.domain.Categoria;
+import com.witoraugusto.springboot.domain.Produto;
+import com.witoraugusto.springboot.repositories.CategoriaRepository;
+import com.witoraugusto.springboot.repositories.ProdutoRepository;
 
 @SpringBootApplication
 public class SpringbootApplication implements CommandLineRunner {
 
 	@Autowired
-	private CategorieRepository categorieRepository;
+	private CategoriaRepository categorieRepository;
+
+	@Autowired
+	private ProdutoRepository produtoRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(SpringbootApplication.class, args);
@@ -22,10 +28,22 @@ public class SpringbootApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		Categorie cat1 = new Categorie(null, "Informática");
-		Categorie cat2 = new Categorie(null, "Escritório");
+		Categoria cat1 = new Categoria(null, "Informática");
+		Categoria cat2 = new Categoria(null, "Escritório");
+
+		Produto p1 = new Produto(null, "Computador", 2000.00);
+		Produto p2 = new Produto(null, "Impressora", 800.00);
+		Produto p3 = new Produto(null, "Mouse", 80.00);
+
+		cat1.getProdutos().addAll(Arrays.asList(p1, p2, p3));
+		cat2.getProdutos().addAll(Arrays.asList(p2));
+
+		p1.getCategorias().addAll(Arrays.asList(cat1));
+		p2.getCategorias().addAll(Arrays.asList(cat1, cat2));
+		p3.getCategorias().addAll(Arrays.asList(cat1));
 
 		categorieRepository.saveAll(Arrays.asList(cat1, cat2));
+		produtoRepository.saveAll(Arrays.asList(p1, p2, p3));
 
 	}
 

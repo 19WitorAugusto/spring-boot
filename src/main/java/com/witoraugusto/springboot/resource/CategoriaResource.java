@@ -10,20 +10,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.witoraugusto.springboot.domain.Categorie;
-import com.witoraugusto.springboot.services.CategorieService;
+import com.witoraugusto.springboot.domain.Categoria;
+import com.witoraugusto.springboot.services.CategoriaService;
 
 @RestController
 @RequestMapping(value = "/categoria")
-public class CategorieResource {
+public class CategoriaResource {
 
 	@Autowired
-	private CategorieService service;
+	private CategoriaService service;
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<?> findById(@PathVariable Integer id) {
 
-		Categorie obj = service.findById(id);
+		Categoria obj = service.findById(id);
 		return ResponseEntity.ok().body(obj);
 
 	}

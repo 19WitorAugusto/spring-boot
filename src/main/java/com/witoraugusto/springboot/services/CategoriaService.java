@@ -5,18 +5,18 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.witoraugusto.springboot.domain.Categorie;
-import com.witoraugusto.springboot.repositories.CategorieRepository;
+import com.witoraugusto.springboot.domain.Categoria;
+import com.witoraugusto.springboot.repositories.CategoriaRepository;
 
 @Service
-public class CategorieService {
+public class CategoriaService {
 
 	// instanciar o repositorio - injeção de dependencia
 	@Autowired
-	private CategorieRepository repo;
+	private CategoriaRepository repo;
 
-	public Categorie findById(Integer id) {
-		Optional<Categorie> obj = repo.findById(id);
+	public Categoria findById(Integer id) {
+		Optional<Categoria> obj = repo.findById(id);
 		return obj.orElse(null);
 	}
 

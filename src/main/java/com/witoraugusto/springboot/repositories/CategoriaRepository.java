@@ -3,10 +3,10 @@ package com.witoraugusto.springboot.repositories;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.witoraugusto.springboot.domain.Categorie;
+import com.witoraugusto.springboot.domain.Categoria;
 
 @Repository
-public interface CategorieRepository extends JpaRepository<Categorie, Integer> {
+public interface CategoriaRepository extends JpaRepository<Categoria, Integer> {
 	
 	
 }
