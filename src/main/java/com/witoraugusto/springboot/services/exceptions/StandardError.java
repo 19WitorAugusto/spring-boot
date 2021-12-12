@@ -41,9 +41,4 @@ public class StandardError implements Serializable {
 		this.timeStamp = timeStamp;
 	}
 
-	@Override
-	public String toString() {
-		return "StandardError [status=" + status + ", msg=" + msg + ", timeStamp=" + timeStamp + "]";
-	}
-
 }
