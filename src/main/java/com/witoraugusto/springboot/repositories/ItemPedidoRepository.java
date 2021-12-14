@@ -7,6 +7,6 @@ import com.witoraugusto.springboot.domain.ItemPedido;
 import com.witoraugusto.springboot.domain.ItemPedidoPK;
 
 @Repository
-public interface ItemPedidoRepository extends JpaRepository<ItemPedido, ItemPedidoPK>{
+public interface ItemPedidoRepository extends JpaRepository<ItemPedido, ItemPedidoPK> {
 
 }
