@@ -11,7 +11,7 @@ import com.witoraugusto.springboot.domain.Categoria;
 import com.witoraugusto.springboot.services.CategoriaService;
 
 @RestController
-@RequestMapping(value = "/categoria")
+@RequestMapping(value = "/categorias")
 public class CategoriaResource {
 
 	@Autowired
