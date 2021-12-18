@@ -7,6 +7,5 @@ import com.witoraugusto.springboot.domain.Categoria;
 
 @Repository
 public interface CategoriaRepository extends JpaRepository<Categoria, Integer> {
-	
-	
+
 }
