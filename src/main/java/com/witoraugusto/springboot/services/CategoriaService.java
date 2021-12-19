@@ -3,10 +3,12 @@ package com.witoraugusto.springboot.services;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.witoraugusto.springboot.domain.Categoria;
 import com.witoraugusto.springboot.repositories.CategoriaRepository;
+import com.witoraugusto.springboot.services.exceptions.DataIntegratyException;
 import com.witoraugusto.springboot.services.exceptions.ObjectNotFoundException;
 
 @Service
@@ -33,5 +35,14 @@ public class CategoriaService {
 		findById(obj.getId());// busca, caso não exista chama exceção
 		return repo.save(obj);
 	}
+
+	public void delete(Integer id) {
+		findById(id);
+		try {			
+			repo.deleteById(id);
+		}catch (DataIntegrityViolationException e) {
+			throw new DataIntegratyException("Não é possivel excluir uma categoria que possui produtos");
+		}
+	} 
 
 }
