@@ -1,5 +1,6 @@
 package com.witoraugusto.springboot.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,10 @@ public class CategoriaService {
 	// instanciar o repositorio - injeção de dependencia
 	@Autowired
 	private CategoriaRepository repo;
+
+	public List<Categoria> findAll() {
+		return repo.findAll();
+	}
 
 	public Categoria findById(Integer id) {
 		Optional<Categoria> obj = repo.findById(id);
@@ -38,11 +43,11 @@ public class CategoriaService {
 
 	public void delete(Integer id) {
 		findById(id);
-		try {			
+		try {
 			repo.deleteById(id);
-		}catch (DataIntegrityViolationException e) {
+		} catch (DataIntegrityViolationException e) {
 			throw new DataIntegratyException("Não é possivel excluir uma categoria que possui produtos");
 		}
-	} 
+	}
 
 }
