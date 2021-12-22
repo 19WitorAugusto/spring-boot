@@ -2,12 +2,20 @@ package com.witoraugusto.springboot.dto;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
+
 import com.witoraugusto.springboot.domain.Categoria;
 
 public class CategoriaDTO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	
+	
 	private Integer id;
+	
+	@NotEmpty(message = "Preenchimento Obrigatório!")
+	@Size(min = 5, max = 80, message = "O tamanho deve ser de 5 a 80 caracteres!")
 	private String nome;
 
 	public CategoriaDTO() {
