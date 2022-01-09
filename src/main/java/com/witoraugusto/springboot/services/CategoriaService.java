@@ -32,12 +32,11 @@ public class CategoriaService {
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! id: " + id + " Tipo: " + Categoria.class.getName()));
 	}
-	
+
 	public Page<Categoria> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
 		return repo.findAll(pageRequest);
 	}
-
 
 	// nulo - save - insere
 	public Categoria insert(Categoria obj) {
@@ -47,8 +46,9 @@ public class CategoriaService {
 
 	// não nulo - save - atualiza
 	public Categoria update(Categoria obj) {
-		findById(obj.getId());// busca, caso não exista chama exceção
-		return repo.save(obj);
+		Categoria newObj = findById(obj.getId());// busca, caso não exista chama exceção
+		updateData(newObj, obj);
+		return repo.save(newObj);
 	}
 
 	public void delete(Integer id) {
@@ -60,9 +60,12 @@ public class CategoriaService {
 		}
 	}
 
-	
 	public Categoria fromDto(CategoriaDTO objDto) {
 		return new Categoria(objDto.getId(), objDto.getNome());
+	}
+
+	private void updateData(Categoria newObj, Categoria obj) {
+		newObj.setNome(obj.getNome());
 	}
 
 }
