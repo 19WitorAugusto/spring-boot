@@ -10,9 +10,14 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
+import com.witoraugusto.springboot.domain.Cidade;
 import com.witoraugusto.springboot.domain.Cliente;
+import com.witoraugusto.springboot.domain.Endereco;
+import com.witoraugusto.springboot.domain.enums.TipoCliente;
 import com.witoraugusto.springboot.dto.ClienteDTO;
+import com.witoraugusto.springboot.dto.ClienteNewDto;
 import com.witoraugusto.springboot.repositories.ClienteRepository;
+import com.witoraugusto.springboot.repositories.EnderecoRepository;
 import com.witoraugusto.springboot.services.exceptions.DataIntegratyException;
 import com.witoraugusto.springboot.services.exceptions.ObjectNotFoundException;
 
@@ -21,6 +26,16 @@ public class ClienteService {
 
 	@Autowired
 	private ClienteRepository repo;
+	@Autowired 
+	private EnderecoRepository enderecoRepository;
+
+	// insert
+	public Cliente insert(Cliente obj) {
+		obj.setId(null);
+		obj = repo.save(obj);
+		enderecoRepository.saveAll(obj.getEnderecos());
+		return obj;
+	}
 
 	// FindById
 	public Cliente findById(Integer id) {
@@ -62,6 +77,26 @@ public class ClienteService {
 
 	public Cliente fromDTO(ClienteDTO objDto) {
 		return new Cliente(objDto.getId(), objDto.getNome(), objDto.getEmail(), null, null);
+	}
+
+	public Cliente fromDTO(ClienteNewDto objDto) {
+		Cliente cliente = new Cliente(null, objDto.getNome(), objDto.getEmail(), objDto.getCpfOuCnpj(),
+				TipoCliente.toEnum(objDto.getTipo()));
+		Cidade cidade = new Cidade(objDto.getCidadeId(), null, null);
+		Endereco endereco = new Endereco(null, objDto.getLogradouro(), objDto.getNumero(), objDto.getComplemento(),
+				objDto.getBairro(), objDto.getCep(), cliente, cidade);
+
+		cliente.getEnderecos().add(endereco);
+		
+		cliente.getTelefones().add(objDto.getTelefone1());
+		
+		if (objDto.getTelefone2() != null) {
+			cliente.getTelefones().add(objDto.getTelefone2());
+		}
+		if (objDto.getTelefone3() != null) {
+			cliente.getTelefones().add(objDto.getTelefone3());
+		}
+		return cliente;
 	}
 
 	private void upadateData(Cliente newObj, Cliente obj) {
