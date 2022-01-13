@@ -19,7 +19,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.witoraugusto.springboot.domain.Categoria;
 import com.witoraugusto.springboot.dto.CategoriaDTO;
-import com.witoraugusto.springboot.dto.ClienteNewDto;
 import com.witoraugusto.springboot.services.CategoriaService;
 
 
