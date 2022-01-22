@@ -21,7 +21,6 @@ import com.witoraugusto.springboot.domain.Categoria;
 import com.witoraugusto.springboot.dto.CategoriaDTO;
 import com.witoraugusto.springboot.services.CategoriaService;
 
-
 @RestController
 @RequestMapping(value = "/categorias")
 public class CategoriaResource {
@@ -29,7 +28,6 @@ public class CategoriaResource {
 	@Autowired
 	private CategoriaService service;
 
-	
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<List<CategoriaDTO>> findAll() {
 		List<Categoria> list = service.findAll();
