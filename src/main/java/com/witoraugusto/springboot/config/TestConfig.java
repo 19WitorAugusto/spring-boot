@@ -15,6 +15,7 @@ import com.witoraugusto.springboot.services.MockEmailService;
 @Profile("test")
 public class TestConfig {
 
+	
 	@Autowired
 	private DBService dbService;
 
