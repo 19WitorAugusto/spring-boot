@@ -20,6 +20,7 @@ import com.witoraugusto.springboot.domain.PagamentoComCartao;
 import com.witoraugusto.springboot.domain.Pedido;
 import com.witoraugusto.springboot.domain.Produto;
 import com.witoraugusto.springboot.domain.enums.EstadoPagamento;
+import com.witoraugusto.springboot.domain.enums.Perfil;
 import com.witoraugusto.springboot.domain.enums.TipoCliente;
 import com.witoraugusto.springboot.repositories.CategoriaRepository;
 import com.witoraugusto.springboot.repositories.CidadeRepositoy;
@@ -62,6 +63,7 @@ public class DBService {
 
 	@Autowired
 	private BCryptPasswordEncoder pe;
+
 	public void instatiateTestDatabase() throws ParseException {
 
 		Categoria cat1 = new Categoria(null, "Informática");
@@ -71,7 +73,6 @@ public class DBService {
 		Categoria cat5 = new Categoria(null, "Jardinagem");
 		Categoria cat6 = new Categoria(null, "Decoração");
 		Categoria cat7 = new Categoria(null, "Perfumaria");
-		
 
 		Produto p1 = new Produto(null, "Computador", 2000.00);
 		Produto p2 = new Produto(null, "Impressora", 800.00);
@@ -107,19 +108,30 @@ public class DBService {
 
 		Estado est1 = new Estado(null, "Minas Gerais");
 		Estado est2 = new Estado(null, "São Paulo");
+		Estado est3 = new Estado(null, "Goiás");
 
 		Cidade c1 = new Cidade(null, "Uberlândia", est1);
 		Cidade c2 = new Cidade(null, "São Paulo", est2);
 		Cidade c3 = new Cidade(null, "Campinas", est2);
+		Cidade c4 = new Cidade(null, "Goiânia", est3);
 
 		est1.getCidades().addAll(Arrays.asList(c1));
 		est2.getCidades().addAll(Arrays.asList(c2, c3));
+		est3.getCidades().addAll(Arrays.asList(c4));
 
-		Cliente cli1 = new Cliente(null, "Maria Silva", "witorsantosaugusto@gmail.com", "36378912377", TipoCliente.PESSOAFISICA,pe.encode("12345678"));
+		Cliente cli1 = new Cliente(null, "Maria Silva", "witorsantosaugusto@gmail.com", "36378912377",
+				TipoCliente.PESSOAFISICA, pe.encode("12345678"));
 		cli1.getTelefones().addAll(Arrays.asList("2763323", "93838393"));
+		
+		Cliente cli2 = new Cliente(null, "Witor Augusto", "witoraugustosantos@hotmail.com", "89928158088",
+				TipoCliente.PESSOAFISICA, pe.encode("12345678"));
+		cli2.getTelefones().addAll(Arrays.asList("6298877665544"));
+		cli2.addPerfil(Perfil.ADMIN);
 
 		Endereco e1 = new Endereco(null, "Rua Flores", "300", "apto 203", "Jardim", "38220834", cli1, c1);
 		Endereco e2 = new Endereco(null, "Avenida Matos", "105", "Sala 800", "Centro", "38777012", cli1, c2);
+
+		Endereco e3 = new Endereco(null, "Avenida T-63", "105", "apto 10", "Bueno", "74998877", cli2, c2);
 
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		Pedido ped1 = new Pedido(null, sdf.parse("30/09/2017 10:32"), cli1, e1);
@@ -135,10 +147,10 @@ public class DBService {
 
 		categorieRepository.saveAll(Arrays.asList(cat1, cat2, cat3, cat4, cat5, cat6, cat7));
 		produtoRepository.saveAll(Arrays.asList(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11));
-		estadoRepositoy.saveAll(Arrays.asList(est1, est2));
-		cidadeRepositoy.saveAll(Arrays.asList(c1, c2, c3));
-		clienteRepository.saveAll(Arrays.asList(cli1));
-		enderecoRepository.saveAll(Arrays.asList(e1, e2));
+		estadoRepositoy.saveAll(Arrays.asList(est1, est2, est3));
+		cidadeRepositoy.saveAll(Arrays.asList(c1, c2, c3, c4));
+		clienteRepository.saveAll(Arrays.asList(cli1, cli2));
+		enderecoRepository.saveAll(Arrays.asList(e1, e2, e3));
 		pagamentoRepository.saveAll(Arrays.asList(pagto1, pagto2));
 		pedidoRepository.saveAll(Arrays.asList(ped1, ped2));
 
